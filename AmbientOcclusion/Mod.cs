@@ -4,7 +4,7 @@ namespace AmbientOcclusion2
 {
     public class Mod : IUserMod
     {
-        public string Name { get; }
-        public string Description { get; }
+        public string Name => "Ambient Occlusion";
+        public string Description => "Adds Ambient Occlusion (SSAO) for greatly improved graphics";
     }
 }
