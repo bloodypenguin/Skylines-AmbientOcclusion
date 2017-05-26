@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 1474797972
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 86fedb1cd3890a0fed13c0387cf8f8bc
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 7bd39743cce4d37940997ab4332a0cd7
+HashAppended: 0
+ClassTypes:
+- Class: 48
+  Script: {instanceID: 0}
+Assets:
+- Assets/AssetBundle/SSAOShader.shader
+Dependencies: []
