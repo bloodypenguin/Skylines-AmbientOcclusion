@@ -216,8 +216,10 @@ half4 frag( v2f i ) : SV_Target
     half denom = NUM_BLUR_SAMPLES + 1;
     
     half4 geom = tex2D (_CameraDepthNormalsTexture, i.uv);
-    
-    for (int s = 0; s < NUM_BLUR_SAMPLES; ++s)
+
+	int s = 0;
+
+    for (s = 0; s < NUM_BLUR_SAMPLES; ++s)
     {
         float2 nuv = i.uv + o * (s+1);
         half4 ngeom = tex2D (_CameraDepthNormalsTexture, nuv.xy);
@@ -225,7 +227,7 @@ half4 frag( v2f i ) : SV_Target
         sum += tex2D (_SSAO, nuv.xy).r * coef;
         denom += coef;
     }
-    for (int s = 0; s < NUM_BLUR_SAMPLES; ++s)
+    for (s = 0; s < NUM_BLUR_SAMPLES; ++s)
     {
         float2 nuv = i.uv - o * (s+1);
         half4 ngeom = tex2D (_CameraDepthNormalsTexture, nuv.xy);
@@ -250,21 +252,17 @@ struct v2f {
 	float2 uv[2] : TEXCOORD0;
 };
 
-sampler2D _MainTex;
-half4 _MainTex_ST;
-
-sampler2D _SSAO;
-half4 _SSAO_ST;
-
 v2f vert (appdata_img v)
 {
 	v2f o;
 	o.pos = mul (UNITY_MATRIX_MVP, v.vertex);
-	o.uv[0] = UnityStereoScreenSpaceUVAdjust(MultiplyUV (UNITY_MATRIX_TEXTURE0, v.texcoord), _MainTex_ST);
-	o.uv[1] = UnityStereoScreenSpaceUVAdjust(MultiplyUV (UNITY_MATRIX_TEXTURE1, v.texcoord), _SSAO_ST);
+	o.uv[0] = MultiplyUV (UNITY_MATRIX_TEXTURE0, v.texcoord);
+	o.uv[1] = MultiplyUV (UNITY_MATRIX_TEXTURE1, v.texcoord);
 	return o;
 }
 
+sampler2D _MainTex;
+sampler2D _SSAO;
 
 half4 frag( v2f i ) : SV_Target
 {
